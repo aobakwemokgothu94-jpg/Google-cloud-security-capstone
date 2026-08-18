@@ -33,16 +33,6 @@ This project simulates the responsibilities of a Cloud Security Analyst. It inte
 
 ---
 
-## 🚀 Features
-
-- **IAM Policies**: Least‑privilege role assignments  
-- **Firewall Rules**: Secure network segmentation  
-- **Monitoring & Logging**: Threat detection and audit trails  
-- **Incident Response Plan**: Documented workflow for handling breaches  
-- **Risk Assessment**: Vulnerability identification and mitigation strategies  
-- **Python Automation**: Log parser for suspicious activity detection  
-
----
 
 ## 🛠️ Setup Instructions
 
@@ -73,18 +63,18 @@ Cloud Security
 
 -Python Automation
 
+## 📚 Cloud Security Analyst Courses
 
-## 📚 Courses
 This project was completed alongside the Google Cloud Cybersecurity Professional Certificate.  
-Detailed course outlines are available in the [`courses/`](courses) folder:
+Detailed course outlines are available in their respective folders:
 
-- [Course 1: Introduction to Security Principles] (Course%201/course1_intro.md)
-- [Course 2: Strategies for Risk Management] (Course%202/risk_management.md)
-- [Course 3: Identify and Protect Against Threats] (Course%203/threats.md)
-- [Course 4: Incident Response] (Course%204/incident_response.md)
-- [Course 5: Capstone Project] (Course%205/capstone.md)
+- [Course 1: Introduction to Security Principles](Course%201/course1_intro.md)
+- [Course 2: Strategies for Risk Management](Course%202/risk_management.md)
+- [Course 3: Identify and Protect Against Threats](Course%203/threats.md)
+- [Course 4: Incident Response](Course%204/incident_response.md)
+- [Course 5: Capstone Project](Course%205/capstone.md)
 
-## 📎 License
+
 This project is licensed under the MIT License.
 
 
