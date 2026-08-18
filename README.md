@@ -72,18 +72,7 @@ Cloud Security
 -DevOps / DevSecOps
 
 -Python Automation
-# ☁️ Google Cloud Security Capstone
 
-## 🔑 Overview
-Capstone project from the Google Cloud Cybersecurity Certificate. Demonstrates applied skills in IAM, firewall configuration, monitoring/logging, incident response, and risk assessment. Includes Python automation scripts and documentation simulating a Cloud Security Analyst role.
-
-## 🚀 Features
-- IAM Policies: Least‑privilege role assignments
-- Firewall Rules: Secure network segmentation
-- Monitoring & Logging: Threat detection and audit trails
-- Incident Response Plan: Documented workflow for handling breaches
-- Risk Assessment: Vulnerability identification and mitigation strategies
-- Python Automation: Log parser for suspicious activity detection
 
 ## 📚 Courses
 This project was completed alongside the Google Cloud Cybersecurity Professional Certificate.  
