@@ -75,3 +75,7 @@ Cloud Security
 
 📎 License
 This project is licensed under the MIT License.
+
+Completed as part of the Google Cloud Cybersecurity Professional Certificate, this capstone project demonstrates applied skills in securing cloud environments. It integrates identity and access management (IAM), firewall configuration, monitoring and logging, incident response planning, and risk assessment into a cohesive security solution.
+
+As a certified Information Security Manager (ISM) and holder of CLLLMP and CLLMSE credentials, I apply advanced principles of cloud and AI security governance to strengthen compliance and resilience. This project showcases readiness for roles in Cloud Security Analysis, SOC operations, DevSecOps, and AI Security Management, combining technical execution with leadership in cybersecurity strategy.
