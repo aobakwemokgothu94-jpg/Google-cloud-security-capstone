@@ -62,7 +62,6 @@ Cloud Security
 -DevOps / DevSecOps
 
 -Python Automation
-
 ## 📚 Cloud Security Analyst Courses
 
 This project was completed alongside the Google Cloud Cybersecurity Professional Certificate.  
@@ -73,6 +72,7 @@ Detailed course outlines are available in their respective folders:
 - [Course 3: Identify and Protect Against Threats](Course%203/threats.md)
 - [Course 4: Incident Response](Course%204/incident_response.md)
 - [Course 5: Capstone Project](Course%205/capstone.md)
+
 
 
 This project is licensed under the MIT License.
