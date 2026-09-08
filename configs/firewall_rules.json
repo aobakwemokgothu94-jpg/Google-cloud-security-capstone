@@ -1,0 +1,184 @@
+{
+  "firewall_policy_name": "Cloud-Security-Capstone-Firewall",
+  "project_id": "security-capstone",
+  "vpc_network": "security-capstone-vpc",
+  "rules": [
+    {
+      "priority": 1000,
+      "name": "allow-ssh-admin",
+      "description": "Allow SSH from admin network only",
+      "direction": "INGRESS",
+      "match": {
+        "srcIpRanges": ["203.0.113.0/24"],
+        "ipProtocol": "tcp",
+        "ports": ["22"]
+      },
+      "action": "allow",
+      "targetTags": ["admin-vm"],
+      "enableLogging": true
+    },
+    {
+      "priority": 1010,
+      "name": "allow-http-web",
+      "description": "Allow HTTP to web servers (with Cloud Armor protection)",
+      "direction": "INGRESS",
+      "match": {
+        "srcIpRanges": ["0.0.0.0/0"],
+        "ipProtocol": "tcp",
+        "ports": ["80"]
+      },
+      "action": "allow",
+      "targetTags": ["web-server"],
+      "enableLogging": true
+    },
+    {
+      "priority": 1020,
+      "name": "allow-https-web",
+      "description": "Allow HTTPS to web servers (with Cloud Armor protection)",
+      "direction": "INGRESS",
+      "match": {
+        "srcIpRanges": ["0.0.0.0/0"],
+        "ipProtocol": "tcp",
+        "ports": ["443"]
+      },
+      "action": "allow",
+      "targetTags": ["web-server"],
+      "enableLogging": true
+    },
+    {
+      "priority": 1030,
+      "name": "allow-db-internal",
+      "description": "Allow database access from app servers only",
+      "direction": "INGRESS",
+      "match": {
+        "srcIpRanges": ["10.1.2.0/24"],
+        "ipProtocol": "tcp",
+        "ports": ["3306", "5432"]
+      },
+      "action": "allow",
+      "targetTags": ["database"],
+      "enableLogging": true
+    },
+    {
+      "priority": 1040,
+      "name": "allow-internal-traffic",
+      "description": "Allow internal VPC communication",
+      "direction": "INGRESS",
+      "match": {
+        "srcIpRanges": ["10.0.0.0/8"],
+        "ipProtocol": "tcp",
+        "ports": ["1-65535"]
+      },
+      "action": "allow",
+      "enableLogging": false
+    },
+    {
+      "priority": 1050,
+      "name": "allow-dns-queries",
+      "description": "Allow DNS queries to Google DNS",
+      "direction": "EGRESS",
+      "match": {
+        "destIpRanges": ["8.8.8.8/32", "8.8.4.4/32"],
+        "ipProtocol": "udp",
+        "ports": ["53"]
+      },
+      "action": "allow",
+      "enableLogging": false
+    },
+    {
+      "priority": 1060,
+      "name": "allow-https-external",
+      "description": "Allow HTTPS to external APIs",
+      "direction": "EGRESS",
+      "match": {
+        "destIpRanges": ["0.0.0.0/0"],
+        "ipProtocol": "tcp",
+        "ports": ["443"]
+      },
+      "action": "allow",
+      "enableLogging": true
+    },
+    {
+      "priority": 65534,
+      "name": "deny-all-ingress",
+      "description": "Deny all other inbound traffic (default)",
+      "direction": "INGRESS",
+      "match": {
+        "srcIpRanges": ["0.0.0.0/0"],
+        "ipProtocol": "all"
+      },
+      "action": "deny",
+      "enableLogging": true
+    },
+    {
+      "priority": 65535,
+      "name": "deny-all-egress",
+      "description": "Deny all other outbound traffic (default)",
+      "direction": "EGRESS",
+      "match": {
+        "destIpRanges": ["0.0.0.0/0"],
+        "ipProtocol": "all"
+      },
+      "action": "deny",
+      "enableLogging": true
+    }
+  ],
+  "cloud_armor_policies": [
+    {
+      "name": "prod-security-policy",
+      "description": "Cloud Armor security policy for production",
+      "rules": [
+        {
+          "priority": 100,
+          "description": "Allow traffic from trusted regions",
+          "match": {
+            "originRegionCode": ["US", "CA", "GB", "DE", "FR"]
+          },
+          "action": "allow"
+        },
+        {
+          "priority": 200,
+          "description": "Rate limiting - 1000 req/min per IP",
+          "match": {
+            "pathPrefix": ["/api"]
+          },
+          "action": "rate-based-ban",
+          "rateLimitOptions": {
+            "conformAction": "allow",
+            "exceedAction": "deny-429",
+            "rateLimit": 1000,
+            "banDurationSec": 600
+          }
+        },
+        {
+          "priority": 300,
+          "description": "Bot detection and challenge",
+          "match": {
+            "userAgent": ["bot", "crawler", "spider"]
+          },
+          "action": "challenge"
+        },
+        {
+          "priority": 400,
+          "description": "Block high-risk regions",
+          "match": {
+            "originRegionCode": ["KP", "IR", "SY"]
+          },
+          "action": "deny-403"
+        },
+        {
+          "priority": 65535,
+          "description": "Default rule - allow all",
+          "action": "allow"
+        }
+      ]
+    }
+  ],
+  "vpc_flow_logs": {
+    "enabled": true,
+    "all_subnets": true,
+    "flow_sampling": 0.5,
+    "metadata": "include-all",
+    "filter_expr": "true"
+  }
+}
