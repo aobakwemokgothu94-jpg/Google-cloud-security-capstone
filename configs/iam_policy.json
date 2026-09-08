@@ -1,0 +1,135 @@
+{
+  "policy_name": "Cloud-Security-Capstone-IAM-Policy",
+  "project_id": "security-capstone",
+  "roles": [
+    {
+      "role_id": "security_analyst",
+      "title": "Cloud Security Analyst",
+      "description": "Custom role for security analysts with monitoring and audit permissions",
+      "stage": "GA",
+      "included_permissions": [
+        "compute.instances.list",
+        "compute.instances.get",
+        "compute.firewalls.list",
+        "compute.firewalls.get",
+        "logging.logEntries.list",
+        "logging.logEntries.get",
+        "monitoring.timeSeries.list",
+        "monitoring.alerts.list",
+        "securitycenter.findings.list",
+        "securitycenter.findings.get",
+        "iam.roles.list",
+        "iam.roles.get",
+        "resourcemanager.projects.get",
+        "resourcemanager.projects.getIamPolicy"
+      ]
+    },
+    {
+      "role_id": "cloud_security_admin",
+      "title": "Cloud Security Administrator",
+      "description": "Custom role for security administrators with enforcement permissions",
+      "stage": "GA",
+      "included_permissions": [
+        "compute.firewalls.create",
+        "compute.firewalls.update",
+        "compute.firewalls.delete",
+        "compute.firewalls.list",
+        "compute.firewalls.get",
+        "iam.roles.create",
+        "iam.roles.update",
+        "iam.roles.delete",
+        "iam.roles.list",
+        "iam.serviceAccounts.getIamPolicy",
+        "iam.serviceAccounts.setIamPolicy",
+        "logging.logEntries.delete",
+        "logging.sinks.create",
+        "logging.sinks.update",
+        "logging.sinks.delete",
+        "securitycenter.findings.setState",
+        "resourcemanager.projects.setIamPolicy"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "role": "roles/viewer",
+      "members": [
+        "group:security-team@example.com"
+      ]
+    },
+    {
+      "role": "roles/compute.admin",
+      "members": [
+        "serviceAccount:cloud-admin@security-capstone.iam.gserviceaccount.com"
+      ]
+    },
+    {
+      "role": "roles/iam.securityAdmin",
+      "members": [
+        "user:security-lead@example.com"
+      ]
+    },
+    {
+      "role": "projects/security-capstone/roles/security_analyst",
+      "members": [
+        "group:security-analysts@example.com",
+        "user:analyst1@example.com",
+        "user:analyst2@example.com"
+      ]
+    },
+    {
+      "role": "projects/security-capstone/roles/cloud_security_admin",
+      "members": [
+        "user:security-lead@example.com",
+        "serviceAccount:security-admin@security-capstone.iam.gserviceaccount.com"
+      ]
+    }
+  ],
+  "service_accounts": [
+    {
+      "account_id": "cloud-admin",
+      "display_name": "Cloud Administration Service Account",
+      "description": "Service account for automated cloud administration tasks",
+      "roles": [
+        "roles/compute.admin",
+        "roles/logging.admin"
+      ]
+    },
+    {
+      "account_id": "security-audit",
+      "display_name": "Security Audit Service Account",
+      "description": "Service account for automated security audits",
+      "roles": [
+        "roles/securitycenter.admin",
+        "roles/logging.viewer",
+        "roles/monitoring.viewer"
+      ]
+    },
+    {
+      "account_id": "incident-response",
+      "display_name": "Incident Response Service Account",
+      "description": "Service account for incident response automation",
+      "roles": [
+        "roles/iam.securityAdmin",
+        "roles/compute.admin",
+        "roles/logging.admin"
+      ]
+    }
+  ],
+  "policy_constraints": {
+    "require_mfa": true,
+    "require_approval_for_privileged_roles": true,
+    "max_session_duration": "4h",
+    "session_idle_timeout": "1h",
+    "ip_whitelist": [
+      "10.0.0.0/8",
+      "203.0.113.0/24"
+    ]
+  },
+  "audit_logging": {
+    "admin_activity": true,
+    "data_access": true,
+    "system_events": true,
+    "retention_days": 90
+  }
+}
